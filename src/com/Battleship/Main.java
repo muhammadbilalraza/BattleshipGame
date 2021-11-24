@@ -6,6 +6,8 @@ public class Main {
 
         Grid grid = new Grid(10,10);
         grid.printGrid();
+        grid.placeShip();
+        grid.printGrid();
 
     }
 }

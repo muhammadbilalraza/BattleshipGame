@@ -70,7 +70,7 @@ public class Grid {
         int randCol = random.nextInt(10);
         int randRow = random.nextInt(10);
         //0 - horizontal, 1 - vertical
-        int choice = random.nextInt(2);
+        int choice;
 
         boolean carrierPlaced = false;
         boolean battleshipPlaced = false;
@@ -79,21 +79,66 @@ public class Grid {
 
         int [] index = new int[2];
 
-        if (carrierPlaced == false){
-            index = getPlacement(0, randRow, randCol, choice);
-            //if choice = 0, placeHorizontal
-            //else placeVertical
-        }
-        else if (battleshipPlaced == false){
-            index = getPlacement(1, randRow, randCol, choice);
-        }
-        else if (submarinePlaced == false){
-            index = getPlacement(2, randRow, randCol, choice);
-        }
-        else if (destroyerPlaced == false){
-            index = getPlacement(3, randRow, randCol, choice);
-        }
-
+        do {
+            choice = random.nextInt(2);
+            if (carrierPlaced == false) {
+                index = getPlacement(0, randRow, randCol, choice);
+                if (choice == 0){
+                    for (int i=0 ; i < carrier.length; i++){
+                        grid[index[0]][index[1]+i] = carrier[i];
+                    }
+                    carrierPlaced = true;
+                }
+                else {
+                    for (int i=0 ; i < carrier.length; i++){
+                        grid[index[0]+i][index[1]] = carrier[i];
+                    }
+                    carrierPlaced = true;
+                }
+            } else if (battleshipPlaced == false) {
+                index = getPlacement(1, randRow, randCol, choice);
+                if (choice == 0){
+                    for (int i=0 ; i < battleship.length; i++){
+                        grid[index[0]][index[1]+i] = battleship[i];
+                    }
+                    battleshipPlaced = true;
+                }
+                else {
+                    for (int i=0 ; i < battleship.length; i++){
+                        grid[index[0]+i][index[1]] = battleship[i];
+                    }
+                    battleshipPlaced = true;
+                }
+            } else if (submarinePlaced == false) {
+                index = getPlacement(2, randRow, randCol, choice);
+                if (choice == 0){
+                    for (int i=0 ; i < submarine.length; i++){
+                        grid[index[0]][index[1]+i] = submarine[i];
+                    }
+                    submarinePlaced = true;
+                }
+                else {
+                    for (int i=0 ; i < submarine.length; i++){
+                        grid[index[0]+i][index[1]] = submarine[i];
+                    }
+                    submarinePlaced = true;
+                }
+            } else if (destroyerPlaced == false) {
+                index = getPlacement(3, randRow, randCol, choice);
+                if (choice == 0){
+                    for (int i=0 ; i < destroyer.length; i++){
+                        grid[index[0]][index[1]+i] = destroyer[i];
+                    }
+                    destroyerPlaced = true;
+                }
+                else {
+                    for (int i=0 ; i < destroyer.length; i++){
+                        grid[index[0]+i][index[1]] = destroyer[i];
+                    }
+                    destroyerPlaced = true;
+                }
+            }
+        } while (carrierPlaced == false && battleshipPlaced == false && submarinePlaced == false && destroyerDestroyed == false);
 
     }
 
@@ -146,8 +191,8 @@ public class Grid {
        }
        else {
            switch (type) {
-               //carrier
                case 0:
+                   //carrier
                    while (!(randRow < (this.rows - this.carrier.length))) {
                        randRow = random.nextInt(6);
                    }
