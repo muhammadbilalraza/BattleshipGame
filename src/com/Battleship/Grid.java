@@ -63,8 +63,7 @@ public class Grid {
 
     //place ships randomly
     public void placeShip() {
-        //generate random number between 0-9
-//        Random random = new Random();
+
         int randCol = random.nextInt(columns);
         int randRow = random.nextInt(rows);
 
@@ -81,8 +80,6 @@ public class Grid {
 
         //0 - horizontal, 1 - vertical
         int choice;
-
-//        carrierPlaced == false && battleshipPlaced == false && submarinePlaced == false && destroyerPlaced == false
         for (int iter = 0; iter < 4; iter++) {
             choice = random.nextInt(2);
             if (carrierPlaced == false) {
@@ -163,9 +160,7 @@ public class Grid {
                case 0:
                    while (!(randCol <= (this.columns - this.carrier.length)))
                        randCol = random.nextInt(6);
-                   //==============
-                   //==== HERE ====
-                   //==============
+
                    randRow = checkShipPlacementHorizontal(randRow,randCol, "carrier");
                    index[0] = randRow;
                    index[1] = randCol;
@@ -174,7 +169,7 @@ public class Grid {
                    //battleship
                    while (!(randCol <= (this.columns - this.battleship.length)))
                        randCol = random.nextInt(6+1);
-                   //nextInt 6-0 because the remaining 6
+
 
                    randRow = checkShipPlacementHorizontal(randRow,randCol, "battleship");
                    index[0] = randRow;
@@ -291,30 +286,34 @@ public class Grid {
         if (shipType.equals("carrier")) {
 //            if (checkFilledBattleship(row, col) == true && checkFilledSubmarine(row, col) == true && checkFilledDestroyer(row, col) == true)
 //                checkShipPlacementHorizontal(random.nextInt(rows), col, "carrier");
-            for (int i=col; i<=carrier.length && i<columns; i++){
+            for (int i=col; i<=carrier.length && i<columns; ++i){
                 if (checkFilledBattleship(row, i) || checkFilledSubmarine(row, i) || checkFilledDestroyer(row, i)) {
                     row = random.nextInt(rows);
+                    System.out.println("row changed 1");
                     i = col;
                 }
             }
         } else if (shipType.equals("battleship")) {
-            for (int i=col; i<=battleship.length && i<columns; i++) {
+            for (int i=col; i<=battleship.length && i<columns; ++i) {
                 if (checkFilledCarrier(row, i) || checkFilledSubmarine(row, i) || checkFilledDestroyer(row, i)) {
                     row = random.nextInt(rows);
+                    System.out.println("row changed 2");
                     i = col;
                 }
             }
         } else if (shipType.equals("submarine")) {
-            for (int i = col; i <= submarine.length && i < columns; i++) {
+            for (int i = col; i <= submarine.length && i < columns; ++i) {
                 if (checkFilledCarrier(row, i) || checkFilledBattleship(row, i) || checkFilledDestroyer(row, i)) {
                     row = random.nextInt(rows);
+                    System.out.println("row changed 3");
                     i = col;
                 }
             }
         } else if (shipType.equals("destroyer")) {
-            for (int i = col; i <= destroyer.length && i < columns; i++) {
+            for (int i = col; i <= destroyer.length && i < columns; ++i) {
                 if (checkFilledCarrier(row, i) || checkFilledBattleship(row, i) || checkFilledSubmarine(row, i)) {
                     row = random.nextInt(rows);
+                    System.out.println("row changed 4");
                     i = col;
                 }
             }
@@ -327,30 +326,34 @@ public class Grid {
     public int checkShipPlacementVertical (int row, int col, String shipType) {
 
         if (shipType.equals("carrier")) {
-            for (int i = row; i <= carrier.length && i < rows; i++) {
+            for (int i = row; i <= carrier.length && i < rows; ++i) {
                 if (checkFilledBattleship(i, col) == true || checkFilledSubmarine(i, col) == true || checkFilledDestroyer(i, col) == true) {
                     col = random.nextInt(columns);
+                    System.out.println("col changed 1");
                     i = row;
                 }
             }
         } else if (shipType.equals("battleship")) {
-            for (int i = row; i <= battleship.length && i < rows; i++) {
+            for (int i = row; i <= battleship.length && i < rows; ++i) {
                 if (checkFilledCarrier(i, col) == true || checkFilledSubmarine(i, col) == true || checkFilledDestroyer(i, col) == true) {
                     col = random.nextInt(columns);
+                    System.out.println("col changed 2");
                     i = row;
                 }
             }
         } else if (shipType.equals("submarine")) {
-            for (int i = row; i <= submarine.length && i < rows; i++) {
+            for (int i = row; i <= submarine.length && i < rows; ++i) {
                 if (checkFilledCarrier(i, col) == true || checkFilledBattleship(i, col) == true || checkFilledDestroyer(i, col) == true) {
                     col = random.nextInt(columns);
+                    System.out.println("col changed 3");
                     i = row;
                 }
             }
         } else if (shipType.equals("destroyer")) {
-            for (int i = row; i <= submarine.length && i < rows; i++) {
+            for (int i = row; i <= submarine.length && i < rows; ++i) {
                 if (checkFilledCarrier(i, col) == true || checkFilledBattleship(i, col) == true || checkFilledSubmarine(i, col) == true) {
                     col = random.nextInt(columns);
+                    System.out.println("col changed 4");
                     i = row;
                 }
             }
