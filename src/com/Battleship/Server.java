@@ -1,36 +1,36 @@
-//package com.Battleship;
-//
-//
-//import java.io.*;
-//import java.net.ServerSocket;
-//import java.net.Socket;
-//
-//public class Server {
-//
-//    private int port = 9999;
-//
-//    ServerSocket serverSocket;
-//    Socket socket;
-//
-//    DataInputStream dataInputStream;
-//    DataOutputStream dataOutputStream;
-//    ObjectInputStream objectInputStream;
-//    ObjectOutputStream objectOutputStream;
-//
-//    public Server(int port) {
-//        try {
-//            serverSocket = new ServerSocket(port);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//
-//    public static void main(String args[]) throws IOException {
-//
-//
-//
-//        Socket socket = serverSocket.accept();
-//    }
-//}
+package com.Battleship;
+
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class Server {
+    DataInputStream dataInputStream;
+    ObjectOutputStream objectOutputStream;
+    DataOutputStream dataOutputStream;
+
+    public Server() {
+    }
+
+    public static void main(String[] args) {
+        try{
+            Scanner input = new Scanner(System.in);
+            ServerSocket serverSocket = new ServerSocket(9999);
+            Socket socket;
+
+            Grid host = new Grid(10,10);
+            System.out.println("Waiting for client...");
+            socket = serverSocket.accept();
+
+            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+
+
+//            dataOutputStream.writeUTF(host.getUsername());
+//            dataOutputStream.flush();
+//            String opponentName = (String) dataInputStream.readUTF();
+//            host.setOpponentName(opponentName);
+
+}

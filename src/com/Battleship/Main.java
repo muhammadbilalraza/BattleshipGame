@@ -9,5 +9,10 @@ public class Main {
         grid.placeShip();
         grid.printGrid();
 
+//    Map m = new Map();
+//    m.placeShips();
+//    m.printGrid();
+
+
     }
 }
