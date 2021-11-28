@@ -5,7 +5,7 @@ import java.util.Random;
 public class Grid {
     private final int rows;
     private final int columns;
-    private final char [][] grid;
+    private char [][] grid;
 
     private char[] carrier = {'C','C','C','C','C'}; //length = 5
     private char[] battleship = {'B','B','B','B'}; //length = 4
@@ -34,7 +34,7 @@ public class Grid {
         }
     }
 
-    public void printGrid() {
+    public char[][] printGrid() {
 
         String columnNumbers = "  |  ";
         for (int i = 0; i < columns; i++)
@@ -58,6 +58,7 @@ public class Grid {
             System.out.println();
         }
 
+        return grid;
     }
 
     //place ships randomly
@@ -344,7 +345,7 @@ public class Grid {
     }
 
     //print board with hits and misses
-    public void boardForOpponent () {
+    public char[][] boardForOpponent () {
         char[][] opponentBoard = new char[rows][columns];
         for (int i = 0; i<rows; i++){
             for (int j = 0; j< columns; j++){
@@ -396,9 +397,10 @@ public class Grid {
         }
 
 
+        return opponentBoard;
     }
 
-    public boolean play(String param){
+    public char[][] play(String param, char[][] opponentBoard){
         char gridCol = param.charAt(0);
         int gridRow = (int)param.charAt(1) - 1;
 
@@ -406,13 +408,10 @@ public class Grid {
             if (gridRow>=0 && gridRow<=9)
                 for (int i = 0; i < rows; i++ )
                     for (int j = 0; j < columns; j++)
-                        if (grid[i][j] == 'C' || grid[i][j] == 'B' || grid[i][j] == 'S' || grid[i][j] == 'D')
-                            grid[i][j]='H';
-                        else grid[i][j]='X';
-            else return false;
-        else return false;
-
-        return  true;
+                        if (opponentBoard[i][j] == 'C' || opponentBoard[i][j] == 'B' || opponentBoard[i][j] == 'S' || opponentBoard[i][j] == 'D')
+                            opponentBoard[i][j]='H';
+                        else opponentBoard[i][j]='X';
+        return opponentBoard;
     }
 
     public boolean winCondition(){
@@ -424,5 +423,8 @@ public class Grid {
         return true;
     }
 
+    public void setBoard(char[][] newBoard) {
+        this.grid = newBoard;
+    }
 }
 
